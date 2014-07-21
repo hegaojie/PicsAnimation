@@ -1,0 +1,4 @@
+PicsAnimation
+=============
+
+Pictures animation collection
