@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicsAnimationDemo", "PicsAnimationDemo\PicsAnimationDemo.csproj", "{677EF15A-8524-4543-92DB-F472BC58035E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StdHorizontalMovement", "StdHorizontalMovement\StdHorizontalMovement.csproj", "{AFD19FE2-0CDA-48AA-9494-3ACBCB3D5D0F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{81FDDA60-C896-44B8-A83D-2FD05268F739}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StdHorizontalMovementTests", "StdHorizontalMovementTests\StdHorizontalMovementTests.csproj", "{67CD2AF4-88D5-40DC-8B14-DE760EDB2CDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,8 +19,19 @@ Global
 		{677EF15A-8524-4543-92DB-F472BC58035E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{677EF15A-8524-4543-92DB-F472BC58035E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{677EF15A-8524-4543-92DB-F472BC58035E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFD19FE2-0CDA-48AA-9494-3ACBCB3D5D0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD19FE2-0CDA-48AA-9494-3ACBCB3D5D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD19FE2-0CDA-48AA-9494-3ACBCB3D5D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFD19FE2-0CDA-48AA-9494-3ACBCB3D5D0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67CD2AF4-88D5-40DC-8B14-DE760EDB2CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67CD2AF4-88D5-40DC-8B14-DE760EDB2CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67CD2AF4-88D5-40DC-8B14-DE760EDB2CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67CD2AF4-88D5-40DC-8B14-DE760EDB2CDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{67CD2AF4-88D5-40DC-8B14-DE760EDB2CDB} = {81FDDA60-C896-44B8-A83D-2FD05268F739}
 	EndGlobalSection
 EndGlobal

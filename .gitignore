@@ -3,4 +3,5 @@ src/*/obj
 src/*/bin
 src/*.user
 src/*.suo
+src/*.DoSettings
 Build

@@ -1,8 +1,39 @@
 ﻿<Window x:Class="PicsAnimationDemo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="200" Width="700">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="60"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Button Content="&lt;&lt;" Width="40" Grid.Column="0" x:Name="uxMove2First" Click="UxMove2First_OnClick" Margin="0,1,0,39" Grid.RowSpan="2"/>
+        <Button Content="&lt;" Width="40" Grid.Column="1" x:Name="uxMove2Left" Click="UxMove2Left_OnClick"/>
+        <ListBox x:Name="uxObjects" Grid.Column="2" ItemsSource="{Binding Path=Objects}" >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True"></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Path=Description}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Content="&gt;" Width="40" Grid.Column="3" x:Name="uxMove2Right" Click="UxMove2Right_OnClick"/>
+        <Button Content="&gt;&gt;" Width="40" Grid.Column="4" x:Name="uxMove2Last" Click="UxMove2Last_OnClick"/>
+        <Button Content="Append" Width="60" Grid.Column="5" x:Name="uxAppend" Click="UxAppend_OnClick"/>
         
+        <Label Content="{Binding Path=Counter}" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 </Window>
