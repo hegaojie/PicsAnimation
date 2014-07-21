@@ -17,10 +17,10 @@ namespace StdHorizontalMovement
             _elements = new List<T>();
             _visibleElements = new List<T>(visibleCount);
             _visibleCount = visibleCount;
-            InitVisibleWinIndex();
+            ResetVisibleWinIndex();
         }
 
-        private void InitVisibleWinIndex()
+        private void ResetVisibleWinIndex()
         {
             _visibleWinStart = -1;
             _visibleWinEnd = -1;
@@ -54,7 +54,7 @@ namespace StdHorizontalMovement
         public void Clear()
         {
             _visibleElements.Clear();
-            InitVisibleWinIndex();
+            ResetVisibleWinIndex();
 
             _elements.Clear();
         }
@@ -85,7 +85,7 @@ namespace StdHorizontalMovement
 
                 for (var i = 0; i < _visibleCount; i++)
                     _visibleElements.Add(_elements[i]);
-                
+
                 _visibleWinEnd = _visibleCount - 1;
                 _visibleWinStart = 0;
             }
@@ -121,6 +121,18 @@ namespace StdHorizontalMovement
                 _visibleWinEnd = _elements.Count - 1;
                 _visibleWinStart = _elements.Count - _visibleCount;
             }
+        }
+
+        public void Move2LeftByStep(int steps)
+        {
+            for (var i = steps; i > 0; i--)
+                Move2Left();
+        }
+
+        public void Move2RightByStep(int steps)
+        {
+            for (var i = steps; i > 0; i--)
+                Move2Right();
         }
     }
 }

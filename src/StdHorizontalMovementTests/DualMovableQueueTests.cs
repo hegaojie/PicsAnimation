@@ -9,17 +9,22 @@ namespace StdHorizontalMovementTests
     {
         protected const int VISIABLE_MAX = 3;
 
-        [TestFixture]
-        public class Move2RightTests
+        protected static string ArrayToString(int[] parameters)
         {
-            protected DualMovableQueue<int> _queue;
+            return string.Join(",", parameters);
+        }
 
-            [TestFixtureSetUp]
-            public void TestFixtureSetUp()
-            {
-                _queue = new DualMovableQueue<int>(VISIABLE_MAX);
-            }
+        protected DualMovableQueue<int> _queue;
 
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            _queue = new DualMovableQueue<int>(VISIABLE_MAX);
+        }
+
+        [TestFixture]
+        public class Move2RightTests : DualMovableQueueTests
+        {
             [TearDown]
             public void TearDown()
             {
@@ -95,16 +100,8 @@ namespace StdHorizontalMovementTests
         }
 
         [TestFixture]
-        public class Move2LeftTests
+        public class Move2LeftTests : DualMovableQueueTests
         {
-            protected DualMovableQueue<int> _queue;
-
-            [TestFixtureSetUp]
-            public void TestFixtureSetUp()
-            {
-                _queue = new DualMovableQueue<int>(VISIABLE_MAX);
-            }
-
             [TearDown]
             public void TearDown()
             {
@@ -178,16 +175,8 @@ namespace StdHorizontalMovementTests
         }
 
         [TestFixture]
-        public class AppendTests
+        public class AppendTests : DualMovableQueueTests
         {
-            protected DualMovableQueue<int> _queue;
-
-            [TestFixtureSetUp]
-            public void TestFixtureSetUp()
-            {
-                _queue = new DualMovableQueue<int>(VISIABLE_MAX);
-            }
-
             [Test]
             public void Given_empty_queue_When_append_1_element_visiable_window_size_equal_to_1()
             {
@@ -212,16 +201,8 @@ namespace StdHorizontalMovementTests
         }
 
         [TestFixture]
-        public class ClearTests
+        public class ClearTests : DualMovableQueueTests
         {
-            protected DualMovableQueue<int> _queue;
-
-            [TestFixtureSetUp]
-            public void TestFixtureSetUp()
-            {
-                _queue = new DualMovableQueue<int>(VISIABLE_MAX);
-            }
-
             [Test]
             public void Given_3_elements_queue_When_clear_should_be_empty()
             {
@@ -237,16 +218,8 @@ namespace StdHorizontalMovementTests
         }
 
         [TestFixture]
-        public class Move2FirstTests
+        public class Move2FirstTests : DualMovableQueueTests
         {
-            protected DualMovableQueue<int> _queue;
-
-            [TestFixtureSetUp]
-            public void TestFixtureSetUp()
-            {
-                _queue = new DualMovableQueue<int>(VISIABLE_MAX);
-            }
-
             [TearDown]
             public void TearDown()
             {
@@ -299,16 +272,8 @@ namespace StdHorizontalMovementTests
         }
 
         [TestFixture]
-        public class Move2LastTests
+        public class Move2LastTests : DualMovableQueueTests
         {
-            protected DualMovableQueue<int> _queue;
-
-            [TestFixtureSetUp]
-            public void TestFixtureSetUp()
-            {
-                _queue = new DualMovableQueue<int>(VISIABLE_MAX);
-            }
-
             [TearDown]
             public void TearDown()
             {
@@ -356,7 +321,131 @@ namespace StdHorizontalMovementTests
                 Assert.AreEqual(expectedPrint, string.Join(",", _queue.VisibleElements.ToArray()));
             }
         }
+
+        [TestFixture]
+        public class Move2LeftByStep
+        {
+            protected DualMovableQueue<int> _queue;
+
+            private const int VISIABLE_MAX = 5;
+
+            [TestFixtureSetUp]
+            public void TestFixtureSetUp()
+            {
+                _queue = new DualMovableQueue<int>(VISIABLE_MAX);
+            }
+
+            [TearDown]
+            public void TearDown()
+            {
+                _queue.Clear();
+            }
+
+            [Test]
+            public void Given_empty_queue_When_move2leftByStep_2_nothing_changed()
+            {
+                _queue.Move2LeftByStep(2);
+
+                var expected = new int[] {};
+                Assert.AreEqual(expected, _queue.VisibleElements.ToArray());
+            }
+
+            [Test]
+            public void Given_7_elements_queue_When_move2leftByStep_2_then_visible_window_should_be_at_the_end()
+            {
+                _queue.Append(1);
+                _queue.Append(2);
+                _queue.Append(3);
+                _queue.Append(4);
+                _queue.Append(5);
+                _queue.Append(6);
+                _queue.Append(7);
+
+                _queue.Move2LeftByStep(2);
+
+                var expected = new[] {3, 4, 5, 6, 7};
+                Assert.AreEqual(ArrayToString(expected), ArrayToString(_queue.VisibleElements.ToArray()));
+            }
+
+            [Test]
+            public void Given_6_elements_queue_When_move2leftByStep_2_then_visible_window_should_be_at_the_end()
+            {
+                _queue.Append(1);
+                _queue.Append(2);
+                _queue.Append(3);
+                _queue.Append(4);
+                _queue.Append(5);
+                _queue.Append(6);
+
+                _queue.Move2LeftByStep(2);
+
+                var expected = new[] { 2, 3, 4, 5, 6 };
+                Assert.AreEqual(ArrayToString(expected), ArrayToString(_queue.VisibleElements.ToArray()));
+            }
+        }
+
+        [TestFixture]
+        public class Move2RightByStep
+        {
+            protected DualMovableQueue<int> _queue;
+
+            private const int VISIABLE_MAX = 5;
+
+            [TestFixtureSetUp]
+            public void TestFixtureSetUp()
+            {
+                _queue = new DualMovableQueue<int>(VISIABLE_MAX);
+            }
+
+            [TearDown]
+            public void TearDown()
+            {
+                _queue.Clear();
+            }
+
+            [Test]
+            public void Given_empty_queue_When_move2rightByStep_2_nothing_changed()
+            {
+                _queue.Move2RightByStep(2);
+
+                var expected = new int[] { };
+                Assert.AreEqual(expected, _queue.VisibleElements.ToArray());
+            }
+
+            [Test]
+            public void Given_7_elements_queue_and_visible_window_at_the_end_When_move2rightByStep_2_then_visible_window_should_be_at_the_begin()
+            {
+                _queue.Append(1);
+                _queue.Append(2);
+                _queue.Append(3);
+                _queue.Append(4);
+                _queue.Append(5);
+                _queue.Append(6);
+                _queue.Append(7);
+                _queue.Move2Last();
+
+                _queue.Move2RightByStep(2);
+
+                var expected = new[] { 1, 2, 3, 4, 5 };
+                Assert.AreEqual(ArrayToString(expected), ArrayToString(_queue.VisibleElements.ToArray()));
+            }
+
+            [Test]
+            public void Given_6_elements_queue_and_visible_window_at_the_end_When_move2rightByStep_2_then_visible_window_should_be_at_the_begin()
+            {
+                _queue.Append(1);
+                _queue.Append(2);
+                _queue.Append(3);
+                _queue.Append(4);
+                _queue.Append(5);
+                _queue.Append(6);
+                _queue.Move2Last();
+
+                _queue.Move2RightByStep(2);
+
+                var expected = new[] { 1, 2, 3, 4, 5 };
+                Assert.AreEqual(ArrayToString(expected), ArrayToString(_queue.VisibleElements.ToArray()));
+            }
+        }
     }
-
-
 }
