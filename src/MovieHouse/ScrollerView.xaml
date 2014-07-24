@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="MovieHouse.ScrollerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:local="clr-namespace:MovieHouse"
+             >
+    <Grid Width="1000" Height="160">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="&lt;" Width="30" Height="160" Grid.Column="0" cal:Message.Attach="[Event Click] = [Action MoveLeft]"/>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Stretch">
+            <local:MvItemsControl x:Name="Posters">
+                <local:MvItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </local:MvItemsControl.ItemsPanel>
+            </local:MvItemsControl>
+            <!--<ListBox Name="Posters" HorizontalContentAlignment="Stretch" >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Image Source="{Binding Path=Poster}"></Image>
+                            <Label Content="{Binding Path=Name}"></Label>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>-->
+
+        </StackPanel>
+        <Button Content="&gt;" Width="30" Height="160" Grid.Column="2" cal:Message.Attach="[Event Click] = [Action MoveRight]"/>
+    </Grid>
+</UserControl>

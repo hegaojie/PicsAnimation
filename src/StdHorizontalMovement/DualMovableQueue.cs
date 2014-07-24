@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace StdHorizontalMovement
@@ -7,15 +10,15 @@ namespace StdHorizontalMovement
     public class DualMovableQueue<T> where T : IComparable, new()
     {
         private readonly IList<T> _elements;
-        private readonly IList<T> _visibleElements;
-        private readonly int _visibleCount;
+        
+        private int _visibleCount;
         private int _visibleWinStart;
         private int _visibleWinEnd;
 
         public DualMovableQueue(int visibleCount)
         {
             _elements = new List<T>();
-            _visibleElements = new List<T>(visibleCount);
+            VisibleElements = new ObservableCollection<T>();
             _visibleCount = visibleCount;
             ResetVisibleWinIndex();
         }
@@ -27,8 +30,8 @@ namespace StdHorizontalMovement
         }
 
         public int Count { get { return _elements.Count; } }
-        public int VisibleCount { get { return _visibleElements.Count; } }
-        public IEnumerable<T> VisibleElements { get { return _visibleElements; } }
+        public int VisibleCount { get { return VisibleElements.Count; } }
+        public ObservableCollection<T> VisibleElements { get; private set; }
 
         public void Append(T element)
         {
@@ -41,9 +44,9 @@ namespace StdHorizontalMovement
 
         private void UpdateVisibleElements(T element)
         {
-            if (_visibleElements.Count < _visibleCount)
+            if (VisibleElements.Count < _visibleCount)
             {
-                _visibleElements.Add(element);
+                VisibleElements.Add(element);
                 _visibleWinEnd++;
 
                 if (_visibleWinStart < 0)
@@ -53,7 +56,7 @@ namespace StdHorizontalMovement
 
         public void Clear()
         {
-            _visibleElements.Clear();
+            VisibleElements.Clear();
             ResetVisibleWinIndex();
 
             _elements.Clear();
@@ -63,17 +66,17 @@ namespace StdHorizontalMovement
         {
             if (CanMove2Left)
             {
-                _visibleElements.Add(_elements[++_visibleWinEnd]);
-                _visibleElements.RemoveAt(0);
+                VisibleElements.Add(_elements[++_visibleWinEnd]);
+                VisibleElements.RemoveAt(0);
                 _visibleWinStart++;
             }
         }
 
-        private bool CanMove2Left
+        public bool CanMove2Left
         {
             get
             {
-                return _elements.LastOrDefault().CompareTo(_visibleElements.LastOrDefault()) != 0;
+                return _elements.LastOrDefault().CompareTo(VisibleElements.LastOrDefault()) != 0;
             }
         }
 
@@ -81,10 +84,10 @@ namespace StdHorizontalMovement
         {
             if (CanMove2Right)
             {
-                _visibleElements.Clear();
+                VisibleElements.Clear();
 
                 for (var i = 0; i < _visibleCount; i++)
-                    _visibleElements.Add(_elements[i]);
+                    VisibleElements.Add(_elements[i]);
 
                 _visibleWinEnd = _visibleCount - 1;
                 _visibleWinStart = 0;
@@ -95,17 +98,17 @@ namespace StdHorizontalMovement
         {
             if (CanMove2Right)
             {
-                _visibleElements.RemoveAt(VisibleCount - 1);
-                _visibleElements.Insert(0, _elements[--_visibleWinStart]);
+                VisibleElements.RemoveAt(VisibleCount - 1);
+                VisibleElements.Insert(0, _elements[--_visibleWinStart]);
                 _visibleWinEnd--;
             }
         }
 
-        private bool CanMove2Right
+        public bool CanMove2Right
         {
             get
             {
-                return _elements.FirstOrDefault().CompareTo(_visibleElements.FirstOrDefault()) != 0;
+                return _elements.FirstOrDefault().CompareTo(VisibleElements.FirstOrDefault()) != 0;
             }
         }
 
@@ -113,10 +116,10 @@ namespace StdHorizontalMovement
         {
             if (CanMove2Left)
             {
-                _visibleElements.Clear();
+                VisibleElements.Clear();
 
                 for (var i = 0; i < _visibleCount; i++)
-                    _visibleElements.Insert(0, _elements[_elements.Count - 1 - i]);
+                    VisibleElements.Insert(0, _elements[_elements.Count - 1 - i]);
 
                 _visibleWinEnd = _elements.Count - 1;
                 _visibleWinStart = _elements.Count - _visibleCount;
@@ -135,4 +138,6 @@ namespace StdHorizontalMovement
                 Move2Right();
         }
     }
+
+
 }

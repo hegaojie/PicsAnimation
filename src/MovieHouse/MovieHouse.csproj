@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{677EF15A-8524-4543-92DB-F472BC58035E}</ProjectGuid>
+    <ProjectGuid>{7B310940-EC1A-4117-8F7C-F7CE63039A8F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PicsAnimationDemo</RootNamespace>
-    <AssemblyName>PicsAnimationDemo</AssemblyName>
+    <RootNamespace>MovieHouse</RootNamespace>
+    <AssemblyName>MovieHouse</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,8 +34,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Core">
+      <HintPath>..\packages\Caliburn.2.0\lib\net40\Caliburn.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.PresentationFramework">
+      <HintPath>..\packages\Caliburn.2.0\lib\net40\Caliburn.PresentationFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,21 +64,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="BriefMovieView.xaml.cs">
+      <DependentUpon>BriefMovieView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BriefMovieViewContainer.xaml.cs">
+      <DependentUpon>BriefMovieViewContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BriefMovieViewModel.cs" />
+    <Compile Include="LeftBottomView.xaml.cs">
+      <DependentUpon>LeftBottomView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LeftBottomViewModel.cs" />
+    <Compile Include="Movie.cs" />
+    <Compile Include="MvItemsControl.cs" />
+    <Compile Include="RightBottomView.xaml.cs">
+      <DependentUpon>RightBottomView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RightBottomViewModel.cs" />
+    <Compile Include="ScrollerView.xaml.cs">
+      <DependentUpon>ScrollerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScrollerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="AppBootsrapper.cs" />
+    <Compile Include="AppView.xaml.cs">
+      <DependentUpon>AppView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppViewModel.cs" />
+    <Compile Include="HeaderView.xaml.cs">
+      <DependentUpon>HeaderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HeaderViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,6 +126,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="AppView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BriefMovieView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BriefMovieViewContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HeaderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LeftBottomView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RightBottomView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ScrollerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StdHorizontalMovement\StdHorizontalMovement.csproj">

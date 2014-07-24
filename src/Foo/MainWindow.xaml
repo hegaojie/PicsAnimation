@@ -1,0 +1,27 @@
+﻿<Window x:Class="Foo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <StackPanel>
+            <ListBox x:Name="libxItems" ItemsSource="{Binding Path=Items}" Background="LightBlue" Height="200">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Label Content="{Binding Path=Name}" Width="100"/>
+                            <Label Content="{Binding Path=Address}" Width="100"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button x:Name="btnAdd" Content="Add Person" Click="BtnAdd_OnClick"/>
+            <Button x:Name="btnRemove" Content="Remove Person" Click="BtnRemove_OnClick"/>
+        </StackPanel>
+        
+    </Grid>
+</Window>
